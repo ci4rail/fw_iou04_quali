@@ -1,8 +1,8 @@
 [submodule "esp_quali_uart"]
-	path = esp_quali_uart
+	path = components/esp_quali_uart
 	url = git@github.com:ci4rail/esp_quali_uart.git
 	branch = initial
 [submodule "esp_ota_update_server"]
-	path = esp_ota_update_server
+	path = components/esp_ota_update_server
 	url = git@github.com:ci4rail/esp_ota_update_server.git
 	branch = feature/ota_update_server
