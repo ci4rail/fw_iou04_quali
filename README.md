@@ -1,2 +1,2 @@
-# fw_quali_iou04
+# fw_iou04_qual
 IOU04 Firmware for qualification tests
