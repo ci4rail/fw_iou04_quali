@@ -1,0 +1,4 @@
+[submodule "esp_quali_uart"]
+	path = esp_quali_uart
+	url = git@github.com:ci4rail/esp_quali_uart.git
+	branch = initial
