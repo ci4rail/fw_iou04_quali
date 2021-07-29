@@ -30,3 +30,9 @@
 *.exe
 *.out
 *.app
+
+sdkconfig
+sdkconfig.old
+
+build/
+workspace.*
