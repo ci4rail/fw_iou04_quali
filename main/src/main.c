@@ -13,7 +13,7 @@ limitations under the License.
 #include "freertos/FreeRTOS.h"
 #include "freertos/task.h"
 #include "ota_server.h"
-#include "esp_quali_uart_test_methods.h"
+#include "test_status_report.h"
 #include "com_test.h"
 
 bool diagnostic_cb(void)
@@ -27,6 +27,8 @@ void app_main(void)
     /* initialize ota update */
     init_ota();
 
-    (void)com1_test_start(NULL);
+    test_status_report_handle_t *sr_handle;
+    new_test_status_report_instance(&sr_handle, 10000);
+    (void)com1_test_start(sr_handle);
 
 }
