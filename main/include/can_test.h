@@ -10,33 +10,9 @@ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 See the License for the specific language governing permissions and
 limitations under the License.
 */
-#include "freertos/FreeRTOS.h"
-#include "freertos/task.h"
-#include "esp_log.h"
-#include "ota_server.h"
-#include "com_test.h"
-#include "can_test.h"
-#include "dcdc.h"
+#ifndef _CAN_TEST_H_
+#define _CAN_TEST_H_
 
-bool diagnostic_cb(void)
-{
-    /* signal that everything is okay */
-    return true;
-}
+void can_test_start(void);
 
-void app_main(void)
-{
-    /* initialize ota update */
-    init_ota();
-
-    dcdc_converter_enable();
-
-    com1_test_start();
-    com2_test_start();
-    can_test_start();
-
-    for(;;){
-        ESP_LOGI("main", "Alive");
-        vTaskDelay(pdMS_TO_TICKS(1000));
-    }
-}
+#endif //_CAN_TEST_H_
