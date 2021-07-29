@@ -14,7 +14,6 @@ limitations under the License.
 #include "freertos/task.h"
 #include "esp_log.h"
 #include "ota_server.h"
-#include "test_status_report.h"
 #include "com_test.h"
 #include "dcdc.h"
 
@@ -31,9 +30,8 @@ void app_main(void)
 
     dcdc_converter_enable();
 
-    test_status_report_handle_t *sr_handle;
-    new_test_status_report_instance(&sr_handle, 10000);
-    (void)com1_test_start(sr_handle);
+    com1_test_start();
+    com2_test_start();
 
     for(;;){
         ESP_LOGI("main", "Alive");
