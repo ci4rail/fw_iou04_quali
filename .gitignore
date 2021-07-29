@@ -36,3 +36,4 @@ sdkconfig.old
 
 build/
 workspace.*
+.vscode/
