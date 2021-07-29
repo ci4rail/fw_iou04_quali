@@ -12,9 +12,11 @@ limitations under the License.
 */
 #include "freertos/FreeRTOS.h"
 #include "freertos/task.h"
+#include "esp_log.h"
 #include "ota_server.h"
 #include "test_status_report.h"
 #include "com_test.h"
+#include "dcdc.h"
 
 bool diagnostic_cb(void)
 {
@@ -27,8 +29,14 @@ void app_main(void)
     /* initialize ota update */
     init_ota();
 
+    dcdc_converter_enable();
+
     test_status_report_handle_t *sr_handle;
     new_test_status_report_instance(&sr_handle, 10000);
     (void)com1_test_start(sr_handle);
 
+    for(;;){
+        ESP_LOGI("main", "Alive");
+        vTaskDelay(pdMS_TO_TICKS(1000));
+    }
 }
