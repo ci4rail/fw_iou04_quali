@@ -10,3 +10,7 @@
 	path = components/esp_test_status_report
 	url = git@github.com:ci4rail/esp_test_status_report.git
 	branch = feature/initial_commit
+[submodule "components/esp_quali_can"]
+	path = components/esp_quali_can
+	url = git@github.com:ci4rail/esp_quali_can.git
+	branch = feature/initial_commit
