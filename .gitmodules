@@ -10,3 +10,6 @@
 	path = components/esp_quali_can
 	url = git@github.com:ci4rail/esp_quali_can.git
 	branch = feature/initial_commit
+[submodule "components/esp_io4edge"]
+	path = components/esp_io4edge
+	url = git@github.com:ci4rail/esp_io4edge.git
