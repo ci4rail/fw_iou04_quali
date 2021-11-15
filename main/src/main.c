@@ -52,7 +52,7 @@ void app_main(void)
     ESP_ERROR_CHECK(io4edge_core_start(&io4edge_core_config));
 
     for(;;){
-        ESP_LOGI("main", "Alive");
+        ESP_LOGI(TAG, "Alive");
         vTaskDelay(pdMS_TO_TICKS(1000));
     }
 }
