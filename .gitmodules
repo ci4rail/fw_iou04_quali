@@ -2,10 +2,6 @@
 	path = components/esp_quali_uart
 	url = git@github.com:ci4rail/esp_quali_uart.git
 	branch = initial
-[submodule "esp_ota_update_server"]
-	path = components/esp_ota_update_server
-	url = git@github.com:ci4rail/esp_ota_update_server.git
-	branch = feature/ota_update_server
 [submodule "esp_test_status_report"]
 	path = components/esp_test_status_report
 	url = git@github.com:ci4rail/esp_test_status_report.git
@@ -14,3 +10,6 @@
 	path = components/esp_quali_can
 	url = git@github.com:ci4rail/esp_quali_can.git
 	branch = feature/initial_commit
+[submodule "components/esp_io4edge"]
+	path = components/esp_io4edge
+	url = git@github.com:ci4rail/esp_io4edge.git
