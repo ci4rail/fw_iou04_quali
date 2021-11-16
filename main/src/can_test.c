@@ -28,7 +28,13 @@ void can_test_start(void)
     quali_can_test_handle_t *hdl;
     test_status_report_handle_t *sr_handle;
 
-    ESP_ERROR_CHECK(new_test_status_report_instance(&sr_handle, 10002));
+    test_status_report_config_t config = {
+        .instance = "iou04-usb-ext-can",
+        .instance_idx = 0,
+        .port = 10002
+    };
+
+    ESP_ERROR_CHECK(new_test_status_report_instance(&sr_handle, &config));
 
     ESP_ERROR_CHECK(new_quali_can_instance(&hdl, sr_handle, &t_config, &f_config, &g_config, MSG_ID));
 }

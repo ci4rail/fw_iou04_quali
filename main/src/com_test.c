@@ -31,7 +31,13 @@ void com1_test_start(void)
     quali_uart_test_handle_t *hdl;
     test_status_report_handle_t *sr_handle;
 
-    ESP_ERROR_CHECK(new_test_status_report_instance(&sr_handle, 10000));
+    test_status_report_config_t config = {
+        .instance = "iou04-usb-ext-com",
+        .instance_idx = 1,
+        .port = 10000
+    };
+
+    ESP_ERROR_CHECK(new_test_status_report_instance(&sr_handle, &config));
 
     ESP_ERROR_CHECK(uart_driver_install(uart_num, RX_BUF_SIZE, TX_BUF_SIZE, 0, NULL, INTR_ALLOC_FLAGS));
     ESP_ERROR_CHECK(uart_param_config(uart_num, &s_uart_config));
@@ -47,7 +53,13 @@ void com2_test_start(void)
     quali_uart_test_handle_t *hdl;
     test_status_report_handle_t *sr_handle;
 
-    ESP_ERROR_CHECK(new_test_status_report_instance(&sr_handle, 10001));
+    test_status_report_config_t config = {
+        .instance = "iou04-usb-ext-com",
+        .instance_idx = 2,
+        .port = 10001
+    };
+
+    ESP_ERROR_CHECK(new_test_status_report_instance(&sr_handle, &config));
 
     ESP_ERROR_CHECK(uart_driver_install(uart_num, RX_BUF_SIZE, TX_BUF_SIZE, 0, NULL, INTR_ALLOC_FLAGS));
     ESP_ERROR_CHECK(uart_param_config(uart_num, &s_uart_config));
