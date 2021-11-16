@@ -1,4 +1,4 @@
-image: ci4rail/gitpod-esp
+image: ci4rail/gitpod-esp:d36603f3
 tasks:
   - name: shell env
     before: |
