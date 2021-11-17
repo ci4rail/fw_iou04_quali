@@ -1,7 +1,7 @@
 [submodule "esp_quali_uart"]
 	path = components/esp_quali_uart
 	url = https://github.com/ci4rail/esp_quali_uart.git
-	branch = initial
+	branch = main
 [submodule "esp_test_status_report"]
 	path = components/esp_test_status_report
 	url = https://github.com/ci4rail/esp_test_status_report.git
