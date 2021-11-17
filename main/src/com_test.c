@@ -28,7 +28,9 @@ void com1_test_start(void)
     quali_uart_test_handle_t *hdl;
     test_status_report_handle_t *sr_handle;
 
-    ESP_ERROR_CHECK(new_test_status_report_instance(&sr_handle, 10000));
+    test_status_report_config_t config = {.instance = "iou04-usb-ext-com", .instance_idx = 1, .port = 10000};
+
+    ESP_ERROR_CHECK(new_test_status_report_instance(&sr_handle, &config));
 
     quali_uart_test_config_t test_config = {
         .uart_num = UART_NUM_0, // requires CONFIG_ESP_CONSOLE_NONE=y
@@ -50,7 +52,9 @@ void com2_test_start(void)
     quali_uart_test_handle_t *hdl;
     test_status_report_handle_t *sr_handle;
 
-    ESP_ERROR_CHECK(new_test_status_report_instance(&sr_handle, 10001));
+    test_status_report_config_t config = {.instance = "iou04-usb-ext-com", .instance_idx = 2, .port = 10001};
+
+    ESP_ERROR_CHECK(new_test_status_report_instance(&sr_handle, &config));
 
     quali_uart_test_config_t test_config = {
         .uart_num = UART_NUM_1,
