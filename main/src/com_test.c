@@ -1,12 +1,13 @@
 #include <stdio.h>
 #include <string.h>
+
+#include "driver/gpio.h"
+#include "driver/uart.h"
+#include "esp_log.h"
 #include "freertos/FreeRTOS.h"
 #include "freertos/task.h"
-#include "driver/uart.h"
-#include "driver/gpio.h"
-#include "sdkconfig.h"
-#include "esp_log.h"
 #include "quali_uart_test.h"
+#include "sdkconfig.h"
 #include "test_status_report.h"
 
 #define RX_BUF_SIZE (1024)
@@ -16,12 +17,11 @@
 static const uart_config_t s_uart_config = {
     .baud_rate = 115200,
     .data_bits = UART_DATA_8_BITS,
-    .parity    = UART_PARITY_DISABLE,
+    .parity = UART_PARITY_DISABLE,
     .stop_bits = UART_STOP_BITS_1,
     .flow_ctrl = UART_HW_FLOWCTRL_DISABLE,
     .source_clk = UART_SCLK_APB,
 };
-
 
 void com1_test_start(void)
 {

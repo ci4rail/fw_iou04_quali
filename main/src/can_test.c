@@ -12,14 +12,15 @@ limitations under the License.
 */
 #include <stdio.h>
 #include <stdlib.h>
-#include "test_status_report.h"
+
 #include "quali_can_test.h"
+#include "test_status_report.h"
 
 #define TX_GPIO_NUM 21
 #define RX_GPIO_NUM 33
-#define MSG_ID      0x0A3
+#define MSG_ID 0x0A3
 
-static const twai_timing_config_t t_config = TWAI_TIMING_CONFIG_1MBITS(); 
+static const twai_timing_config_t t_config = TWAI_TIMING_CONFIG_1MBITS();
 static const twai_filter_config_t f_config = TWAI_FILTER_CONFIG_ACCEPT_ALL();
 static const twai_general_config_t g_config = TWAI_GENERAL_CONFIG_DEFAULT(TX_GPIO_NUM, RX_GPIO_NUM, TWAI_MODE_NORMAL);
 

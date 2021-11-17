@@ -10,17 +10,17 @@ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 See the License for the specific language governing permissions and
 limitations under the License.
 */
-#include "freertos/FreeRTOS.h"
-#include "freertos/task.h"
-#include "esp_log.h"
-#include "com_test.h"
 #include "can_test.h"
+#include "com_test.h"
 #include "dcdc.h"
 #include "esp_err.h"
+#include "esp_log.h"
+#include "freertos/FreeRTOS.h"
+#include "freertos/task.h"
 #include "io4edge_core.h"
 #include "io4edge_machine.h"
 
-static char *TAG = "main";
+static char* TAG = "main";
 
 // example hostname
 static const char* hostname = "ESP32S2";
@@ -51,7 +51,7 @@ void app_main(void)
 
     ESP_ERROR_CHECK(io4edge_core_start(&io4edge_core_config));
 
-    for(;;){
+    for (;;) {
         ESP_LOGI(TAG, "Alive");
         vTaskDelay(pdMS_TO_TICKS(1000));
     }

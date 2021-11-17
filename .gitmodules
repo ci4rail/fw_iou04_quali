@@ -1,15 +1,15 @@
 [submodule "esp_quali_uart"]
 	path = components/esp_quali_uart
-	url = git@github.com:ci4rail/esp_quali_uart.git
+	url = https://github.com/ci4rail/esp_quali_uart.git
 	branch = initial
 [submodule "esp_test_status_report"]
 	path = components/esp_test_status_report
-	url = git@github.com:ci4rail/esp_test_status_report.git
+	url = https://github.com/ci4rail/esp_test_status_report.git
 	branch = feature/initial_commit
 [submodule "components/esp_quali_can"]
 	path = components/esp_quali_can
-	url = git@github.com:ci4rail/esp_quali_can.git
+	url = https://github.com/ci4rail/esp_quali_can.git
 	branch = feature/initial_commit
 [submodule "components/esp_io4edge"]
 	path = components/esp_io4edge
-	url = git@github.com:ci4rail/esp_io4edge.git
+	url = https://github.com/ci4rail/esp_io4edge.git
