@@ -37,3 +37,6 @@ sdkconfig.old
 build/
 workspace.*
 .vscode/
+
+compile_commands.json
+.cache/

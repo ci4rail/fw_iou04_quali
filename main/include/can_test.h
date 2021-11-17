@@ -15,4 +15,4 @@ limitations under the License.
 
 void can_test_start(void);
 
-#endif //_CAN_TEST_H_
+#endif  //_CAN_TEST_H_
