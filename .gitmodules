@@ -5,11 +5,11 @@
 [submodule "esp_test_status_report"]
 	path = components/esp_test_status_report
 	url = https://github.com/ci4rail/esp_test_status_report.git
-	branch = feature/initial_commit
+	branch = main
 [submodule "components/esp_quali_can"]
 	path = components/esp_quali_can
 	url = https://github.com/ci4rail/esp_quali_can.git
-	branch = feature/initial_commit
+	branch =main
 [submodule "components/esp_io4edge"]
 	path = components/esp_io4edge
 	url = https://github.com/ci4rail/esp_io4edge.git
