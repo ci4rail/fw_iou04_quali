@@ -4,10 +4,5 @@ cmake_minimum_required(VERSION 3.5)
 
 set(EXCLUDE_COMPONENTS asio coap)
 
-# Define where the certificate can be found (relatively to the project directory)
-set(OTA_CERT_PATH /server_certs/ca_cert.pem)
-# Define where ota_server_cert.h can be found (relatively to the project directory)
-set(OTA_SERVER_CERT_H /server_certs)
-
 include($ENV{IDF_PATH}/tools/cmake/project.cmake)
 project(fw_iou04_quali)
