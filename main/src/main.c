@@ -17,6 +17,7 @@ limitations under the License.
 #include "esp_log.h"
 #include "freertos/FreeRTOS.h"
 #include "freertos/task.h"
+#include "io4edge.h"
 #include "io4edge_core.h"
 #include "io4edge_machine.h"
 
@@ -41,7 +42,10 @@ void app_main(void)
     i2c_port_t i2c_port;
     ESP_ERROR_CHECK(io4edge_iou_i2c_master_initialize(&i2c_port));
     ESP_ERROR_CHECK(io4edge_new_iou_hw_inventory(i2c_port, &io4edge_core_config.hw_inventory_provider));
-    ESP_ERROR_CHECK(io4edge_core_init(hostname, instance));
+
+    io4edge_config_t io4edge_config = {.hostname = hostname, .instance_name = instance};
+
+    ESP_ERROR_CHECK(io4edge_init(&io4edge_config));
 
     dcdc_converter_enable();
 
