@@ -1,0 +1,7 @@
+[submodule "components/esp_io4edge"]
+	path = components/esp_io4edge
+	url = https://github.com/ci4rail/esp_io4edge.git
+	branch = main
+[submodule "dev/io4edge_api"]
+	path = dev/io4edge_api
+	url = https://github.com/ci4rail/io4edge_api

@@ -1,0 +1,45 @@
+name: fw-image
+on:
+  push:
+    # Sequence of patterns matched against refs/tags
+    tags:
+      - "[0-9]+.[0-9]+.[0-9]+*"
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v2
+        with:
+          submodules: "true"
+          token: ${{ secrets.PAT_TOKEN }}
+      - name: Get project and filename
+        id: identify
+        run: |
+          project=$(grep PKG_FIRMWARE_NAME fw-package.env | cut -f 2 -d =)
+          echo "::set-output name=project::$(echo ${project})"
+          echo "::set-output name=fwfile::$(echo ${project}-${{ github.ref_name }}.bin)"
+      - name: Build firmware
+        # Build firmware using same docker image as used in gitpod to have exactly same environment as for local builds
+        # The chown -R 33333 ensures that the gitpod user in the gitpod-esp can access and create files in the repo
+        run: |
+          gitpod_image=$(grep gitpod-esp: .gitpod.yml | awk '{print $2}')
+          sudo chown -R 33333 .
+          docker run -v $(pwd):/src ${gitpod_image} bash -c "source /home/gitpod/esp/idf/export.sh && cd /src/ && idf.py build && idf.py dfu"
+          sudo chown -R runner .
+          cp build/${{ steps.identify.outputs.project }}.bin build/${{ steps.identify.outputs.fwfile }}
+          cp build/dfu.bin build/${{ steps.identify.outputs.fwfile }}.dfu.bin
+      - name: Package
+        id: fwpkg
+        run: |
+          ./make-firmware-pkg.sh
+          echo "::set-output name=fwpkg::$(ls build/*.fwpkg)"
+      - name: Release
+        uses: softprops/action-gh-release@v1
+        if: startsWith(github.ref, 'refs/tags/')
+        with:
+          files: |
+            build/${{ steps.identify.outputs.fwfile }}
+            build/${{ steps.identify.outputs.fwfile }}.dfu.bin
+            ${{ steps.fwpkg.outputs.fwpkg }}

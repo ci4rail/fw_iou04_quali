@@ -1,0 +1,48 @@
+image: ci4rail/gitpod-esp:35dee70e
+
+tasks:
+  - name: shell env
+    before: |
+      echo 'source $IDF_PATH/export.sh' >~/.bashrc.d/100-esp-idf
+      echo 'source $IDF_PATH/export.sh' >>~/.zshrc
+      mkdir ~/.ssh
+      echo -e "${SSH_PRIVATE_KEY//_/\\n}" > ~/.ssh/id_rsa
+      chmod 600 ~/.ssh/id_rsa
+  - name: pre-commit install
+    before: |
+      echo 'PIP_USER="no"' >~/.bashrc.d/110-fix-pip-user
+      export PIP_USER="no" && pre-commit install && pre-commit && git submodule foreach "pre-commit install && pre-commit"
+  - name: tailscaled
+    command: |
+      sudo tailscaled
+  - name: tailscale
+    command: |
+      sudo -E tailscale up --hostname "gitpod-${GITPOD_WORKSPACE_ID}" \
+                           --authkey "${TAILSCALE_AUTHKEY}"
+  - name: compile firmware
+    command: |
+      ln -s build/compile_commands.json .
+      . $IDF_PATH/export.sh && idf.py build
+  - name: start zsh
+    before: |
+      git clone https://github.com/zsh-users/zsh-autosuggestions ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-autosuggestions
+    command: |
+      sed -i -e "/ZSH_THEME=/s/robbyrussell/agnoster/" ~/.zshrc
+      sed -i -e "/plugins=/s/git/git zsh-autosuggestions/" ~/.zshrc
+      zsh
+  - name: vscode settings
+    # terminal.integrated.localEchoLatencyThreshold disables local echo, which confuses me on, e.g. in gitpod
+    command: |
+      mkdir -p "$PWD/.vscode";
+      cat << 'EOF' > "$PWD/.vscode/settings.json"
+      {
+        "terminal.integrated.localEchoLatencyThreshold": -1,
+      }
+      EOF
+
+vscode:
+  extensions:
+    - llvm-vs-code-extensions.vscode-clangd
+    - ms-vscode.cmake-tools
+    - zxh404.vscode-proto3
+    - twxs.cmake
