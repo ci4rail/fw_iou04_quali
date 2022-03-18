@@ -45,13 +45,12 @@ void app_main(void)
     };
     ESP_ERROR_CHECK(io4edge_init(&io4edge_config));
 
-
-    io4edge_ttynvt_config_t ttynvt_config = {.instance = "iou04-com",
-        .instance_idx = 0,
+    io4edge_ttynvt_config_t ttynvt_config1 = {.instance = "iou04-com",
+        .instance_idx = 1,
         .port = 10000,
         .socket_listen_task_prio = 5,
         .socket_rx_task_prio = 10,
-        .uart_num = UART_NUM_1,
+        .uart_num = UART_NUM_0,
         .rx_buf_size = 1024,
         .tx_buf_size = 1024,
         .gpio_tx = 11,
@@ -60,7 +59,23 @@ void app_main(void)
         .gpio_cts = 12,
         .uart_task_prio = 11};
 
-    ESP_ERROR_CHECK(io4edge_ttynvt_new_instance(&ttynvt_config));
+    ESP_ERROR_CHECK(io4edge_ttynvt_new_instance(&ttynvt_config1));
+
+    io4edge_ttynvt_config_t ttynvt_config2 = {.instance = "iou04-com",
+        .instance_idx = 2,
+        .port = 10001,
+        .socket_listen_task_prio = 5,
+        .socket_rx_task_prio = 10,
+        .uart_num = UART_NUM_1,
+        .rx_buf_size = 1024,
+        .tx_buf_size = 1024,
+        .gpio_tx = 15,
+        .gpio_rx = 17,
+        .gpio_rts = 14,
+        .gpio_cts = 16,
+        .uart_task_prio = 11};
+
+    ESP_ERROR_CHECK(io4edge_ttynvt_new_instance(&ttynvt_config2));
 
     static io4edge_core_config_t io4edge_core_config = {
         .core_server_priority = 5,
