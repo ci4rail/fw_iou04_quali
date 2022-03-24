@@ -8,3 +8,6 @@
 [submodule "components/esp_io4edge_ttynvt"]
 	path = components/esp_io4edge_ttynvt
 	url = https://github.com/ci4rail/esp_io4edge_ttynvt.git
+[submodule "components/esp_io4edge_twaiL2"]
+	path = components/esp_io4edge_twaiL2
+	url = https://github.com/ci4rail/esp_io4edge_twaiL2.git
