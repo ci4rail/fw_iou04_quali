@@ -13,7 +13,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Build and Test
-        uses: ci4rail/fw_esp-action@a0ddf8b071bf9e81d22a88f997914f383928d2cd
+        uses: ci4rail/fw_esp-action@44aab278a97eac4feb32d055954ee97febf28996
         with:
           pipeline-name: "${{ github.repository }}"
           # This name is resolved by tailscale magic DNS
