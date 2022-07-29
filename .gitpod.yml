@@ -1,4 +1,5 @@
-image: ci4rail/gitpod-esp:35dee70e
+
+image: ci4rail/gitpod-esp:ad797882
 
 tasks:
   - name: shell env
@@ -39,7 +40,6 @@ tasks:
         "terminal.integrated.localEchoLatencyThreshold": -1,
       }
       EOF
-
 vscode:
   extensions:
     - llvm-vs-code-extensions.vscode-clangd

@@ -20,6 +20,8 @@ limitations under the License.
 #include "driver/uart.h"
 #include "io4edge_ttynvt.h"
 
+#include "twaiL2.h"
+
 static char* TAG = "main";
 
 extern void net_init(void);
@@ -81,6 +83,41 @@ void app_main(void)
         .core_server_priority = 5,
         .application_is_working = application_is_working,
     };
+
+    /* disable CAN_SILENT */
+    gpio_set_direction(GPIO_NUM_18, GPIO_MODE_OUTPUT);
+    gpio_set_level(GPIO_NUM_18, 0);
+
+    twaiL2_config_t can_config = {
+        .generic =
+            {
+                .instance_num = 1,
+                .port = 10000,
+
+                .server =
+                    {
+                        9,
+                        3072,
+                    },
+                .connection =
+                    {
+                        10,
+                        4700,
+                    },
+                .stream =
+                    {
+                        11,
+                        4096,
+                    },
+                .recording =
+                    {
+                        23,
+                        4096,
+                    },
+            },
+    };
+
+    twaiL2_new(&can_config);
 
     ESP_ERROR_CHECK(io4edge_core_start(&io4edge_core_config));
 }
