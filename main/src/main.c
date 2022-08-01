@@ -115,9 +115,13 @@ void app_main(void)
                         4096,
                     },
             },
-        .baud = 0,
-        .samplePoint = 0,
+        .tx_gpio = 21,
+        .rx_gpio = 33,
+        .baud = 125000,
+        .samplePoint = 0.8,
         .listenOnly = false,
+        .rx_queue_len = 300,
+        .tx_queue_len = 300,
     };
 
     twaiL2_new(&can_config);
