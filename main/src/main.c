@@ -115,6 +115,9 @@ void app_main(void)
                         4096,
                     },
             },
+        .baud = 0,
+        .samplePoint = 0,
+        .listenOnly = false,
     };
 
     twaiL2_new(&can_config);
