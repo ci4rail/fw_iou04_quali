@@ -47,7 +47,8 @@ void app_main(void)
     };
     ESP_ERROR_CHECK(io4edge_init(&io4edge_config));
 
-    io4edge_ttynvt_config_t ttynvt_config1 = {.instance = "iou04-com",
+    io4edge_ttynvt_config_t ttynvt_config1 = {
+        .instance = "com",
         .instance_idx = 1,
         .port = 10000,
         .socket_listen_task_prio = 5,
@@ -59,11 +60,12 @@ void app_main(void)
         .gpio_rx = 13,
         .gpio_rts = 10,
         .gpio_cts = 12,
-        .uart_task_prio = 11};
+        .uart_task_prio = 11,
+    };
 
     ESP_ERROR_CHECK(io4edge_ttynvt_new_instance(&ttynvt_config1));
 
-    io4edge_ttynvt_config_t ttynvt_config2 = {.instance = "iou04-com",
+    io4edge_ttynvt_config_t ttynvt_config2 = {.instance = "com",
         .instance_idx = 2,
         .port = 10001,
         .socket_listen_task_prio = 5,
@@ -84,15 +86,15 @@ void app_main(void)
         .application_is_working = application_is_working,
     };
 
-    /* disable CAN_SILENT */
+    /* disable CAN_SILENT TODO???*/
     gpio_set_direction(GPIO_NUM_18, GPIO_MODE_OUTPUT);
     gpio_set_level(GPIO_NUM_18, 0);
 
     twaiL2_config_t can_config = {
         .generic =
             {
-                .instance_num = 1,
-                .port = 10000,
+                .instance_num = 0,
+                .port = 10002,
 
                 .server =
                     {
