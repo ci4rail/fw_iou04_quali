@@ -18,8 +18,10 @@ limitations under the License.
 #include "io4edge_core.h"
 #include "driver/gpio.h"
 #include "driver/uart.h"
+#include "io4edge_debug.h"
 #include "io4edge_ttynvt.h"
 
+#include "projdefs.h"
 #include "twaiL2.h"
 
 static char* TAG = "main";
@@ -104,7 +106,8 @@ void app_main(void)
                 .connection =
                     {
                         10,
-                        4700,
+                        10000,  // must fit to CONFIG_FUNCTIONBLOCK_MAX_CMD_MSG_SIZE,
+                                // CONFIG_FUNCTIONBLOCK_MAX_DESERIAL_MSG_SIZE, CONFIG_FUNCTIONBLOCK_MAX_CMD_MSG_SIZE
                     },
                 .stream =
                     {
@@ -120,7 +123,8 @@ void app_main(void)
         .tx_gpio = 21,
         .rx_gpio = 33,
         .baud = 125000,
-        .samplePoint = 0.8,
+        .samplePoint = 800,
+        .sjw = 1,
         .listenOnly = false,
         .rx_queue_len = 300,
         .tx_queue_len = 300,
@@ -129,4 +133,11 @@ void app_main(void)
     twaiL2_new(&can_config);
 
     ESP_ERROR_CHECK(io4edge_core_start(&io4edge_core_config));
+
+#if 0
+    for (;;) {
+        io4edge_show_tasks(false);
+        vTaskDelay(pdMS_TO_TICKS(2000));
+    }
+#endif
 }
