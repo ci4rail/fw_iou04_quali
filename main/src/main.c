@@ -45,9 +45,16 @@ void app_main(void)
         .log_config =
             {
                 .min_buffered_lines = 5,
+                .enable_deferred_console_logging = true,
             },
     };
     ESP_ERROR_CHECK(io4edge_init(&io4edge_config));
+
+    static io4edge_core_config_t io4edge_core_config = {
+        .core_server_priority = 5,
+        .application_is_working = application_is_working,
+    };
+    ESP_ERROR_CHECK(io4edge_core_start(&io4edge_core_config));
 
     io4edge_ttynvt_config_t ttynvt_config1 = {
         .instance = "com",
@@ -83,12 +90,10 @@ void app_main(void)
 
     ESP_ERROR_CHECK(io4edge_ttynvt_new_instance(&ttynvt_config2));
 
-    static io4edge_core_config_t io4edge_core_config = {
-        .core_server_priority = 5,
-        .application_is_working = application_is_working,
-    };
-
-    /* disable CAN_SILENT TODO???*/
+    //
+    // disable CAN_SILENT
+    // it is not necessary to enable CAN_SILENT in listen only mode, as the TWAI doesn't send anyway
+    //
     gpio_set_direction(GPIO_NUM_18, GPIO_MODE_OUTPUT);
     gpio_set_level(GPIO_NUM_18, 0);
 
@@ -122,17 +127,13 @@ void app_main(void)
             },
         .tx_gpio = 21,
         .rx_gpio = 33,
-        .baud = 125000,
-        .samplePoint = 800,
-        .sjw = 1,
-        .listenOnly = false,
+        .bus_config = {},
         .rx_queue_len = 300,
         .tx_queue_len = 300,
     };
+    twaiL2_init_persistent_config(&can_config.bus_config);
 
-    twaiL2_new(&can_config);
-
-    ESP_ERROR_CHECK(io4edge_core_start(&io4edge_core_config));
+    ESP_ERROR_CHECK(twaiL2_new(&can_config));
 
 #if 0
     for (;;) {
