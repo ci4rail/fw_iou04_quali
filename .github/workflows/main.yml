@@ -13,11 +13,12 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Build and Test
-        uses: ci4rail/fw_esp-action@44aab278a97eac4feb32d055954ee97febf28996
+        uses: ci4rail/fw_esp-action@v3
         with:
           pipeline-name: "${{ github.repository }}"
-          # This name is resolved by tailscale magic DNS
+          # No tests for now
           skip-test: true
+          # This name is resolved by tailscale magic DNS
           teststation-broker-url: "lizard-rpi:1883"
           device-name: "XXX"
           test-name: "XXX"
