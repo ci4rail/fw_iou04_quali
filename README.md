@@ -1,5 +1,12 @@
 # fw-esp-iou-default
-Default firmware for ESPS2 based IOUs (io4edge modules).
+Default firmware for IOU04.
+
+Supports
+* 2 x ttynvt for COM1, COM2
+* 1 x canL2 for CAN
+
+**ATTENTION**: Be sure to disable CONSOLE (`CONFIG_ESP_CONSOLE_NONE=y`) when compiling for production. UART1 is needed for COM1.
+
 
 This repo is intended to run under [gitpod](https://gitpod.io/).
 

@@ -44,7 +44,7 @@ void app_main(void)
     io4edge_config_t io4edge_config = {
         .log_config =
             {
-                .min_buffered_lines = 5,
+                .min_buffered_lines = 30,
                 .enable_deferred_console_logging = true,
             },
     };
@@ -56,6 +56,7 @@ void app_main(void)
     };
     ESP_ERROR_CHECK(io4edge_core_start(&io4edge_core_config));
 
+#ifdef CONFIG_ESP_CONSOLE_NONE
     io4edge_ttynvt_config_t ttynvt_config1 = {
         .instance = "com",
         .instance_idx = 1,
@@ -73,8 +74,9 @@ void app_main(void)
     };
 
     ESP_ERROR_CHECK(io4edge_ttynvt_new_instance(&ttynvt_config1));
-
-    io4edge_ttynvt_config_t ttynvt_config2 = {.instance = "com",
+#endif
+    io4edge_ttynvt_config_t ttynvt_config2 = {
+        .instance = "com",
         .instance_idx = 2,
         .port = 10001,
         .socket_listen_task_prio = 5,
@@ -86,7 +88,8 @@ void app_main(void)
         .gpio_rx = 17,
         .gpio_rts = 14,
         .gpio_cts = 16,
-        .uart_task_prio = 11};
+        .uart_task_prio = 11,
+    };
 
     ESP_ERROR_CHECK(io4edge_ttynvt_new_instance(&ttynvt_config2));
 
@@ -131,6 +134,7 @@ void app_main(void)
         .rx_queue_len = 300,
         .tx_queue_len = 300,
     };
+    // read persistent configuration from "can-config" parameter
     twaiL2_init_persistent_config(&can_config.bus_config);
 
     ESP_ERROR_CHECK(twaiL2_new(&can_config));
