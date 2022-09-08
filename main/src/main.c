@@ -23,11 +23,6 @@ limitations under the License.
 
 static char* TAG = "main";
 
-// example hostname
-static const char* hostname = "ESP32S2";
-// example default instance name
-static const char* instance = "iou04-usb-ext";
-
 static bool application_is_working(void)
 {
     ESP_LOGI(TAG, "application_is_working called");
@@ -36,24 +31,28 @@ static bool application_is_working(void)
 
 void app_main(void)
 {
-    static io4edge_core_config_t io4edge_core_config = {
-        .core_server_priority = 5, .application_is_working = application_is_working};
+    ESP_LOGI(TAG, "Start");
 
-    i2c_port_t i2c_port;
-    ESP_ERROR_CHECK(io4edge_iou_i2c_master_initialize(&i2c_port));
-    ESP_ERROR_CHECK(io4edge_new_iou_hw_inventory(i2c_port, &io4edge_core_config.hw_inventory_provider));
-
-    io4edge_config_t io4edge_config = {.hostname = hostname, .instance_name = instance};
-
+    io4edge_config_t io4edge_config = {
+        .log_config =
+            {
+                .min_buffered_lines = 30,
+                .enable_deferred_console_logging = true,
+            },
+    };
     ESP_ERROR_CHECK(io4edge_init(&io4edge_config));
+
+    static io4edge_core_config_t io4edge_core_config = {
+        .core_server_priority = 5,
+        .application_is_working = application_is_working,
+    };
+    ESP_ERROR_CHECK(io4edge_core_start(&io4edge_core_config));
 
     dcdc_converter_enable();
 
     com1_test_start();
     com2_test_start();
     can_test_start();
-
-    ESP_ERROR_CHECK(io4edge_core_start(&io4edge_core_config));
 
     for (;;) {
         ESP_LOGI(TAG, "Alive");

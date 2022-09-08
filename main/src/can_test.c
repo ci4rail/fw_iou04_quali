@@ -13,6 +13,7 @@ limitations under the License.
 #include <stdio.h>
 #include <stdlib.h>
 
+#include "hal/twai_types.h"
 #include "quali_can_test.h"
 #include "test_status_report.h"
 
@@ -30,6 +31,10 @@ void can_test_start(void)
     test_status_report_handle_t *sr_handle;
 
     test_status_report_config_t config = {.instance = "iou04-usb-ext-can", .instance_idx = 0, .port = 10002};
+
+    /* disable CAN_SILENT */
+    gpio_set_direction(GPIO_NUM_18, GPIO_MODE_OUTPUT);
+    gpio_set_level(GPIO_NUM_18, 0);
 
     ESP_ERROR_CHECK(new_test_status_report_instance(&sr_handle, &config));
 
