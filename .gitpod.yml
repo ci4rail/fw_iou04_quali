@@ -1,5 +1,5 @@
 
-image: ci4rail/gitpod-esp:ad797882
+image: ci4rail/gitpod-esp:668cb4ee
 
 tasks:
   - name: shell env

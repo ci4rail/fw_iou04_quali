@@ -13,19 +13,17 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Build and Test
-        uses: ci4rail/fw_esp-action@v3
+        uses: ci4rail/fw_esp-action@v6
         with:
           pipeline-name: "${{ github.repository }}"
-          # No tests for now
-          skip-test: true
           # This name is resolved by tailscale magic DNS
           teststation-broker-url: "lizard-rpi:1883"
-          device-name: "XXX"
-          test-name: "XXX"
+          device-name: "iou04_1"
+          test-name: "iou04"
           access-token: ${{ secrets.FW_CI_TOKEN }}
           # must be a reusable, emphemeral key!
           tailscale-key: ${{ secrets.YODA_TAILSCALE_AUTHKEY }}
           minio-access-key: ${{ secrets.MINIO_ACCESS_KEY }}
           minio-secret-key: ${{ secrets.MINIO_SECRET_KEY }}
-          request-timeout: "600"
+          request-timeout: "3600"
           build-dfu: "false"
