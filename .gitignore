@@ -42,3 +42,5 @@ gen/
 
 compile_commands.json
 .cache/
+
+.clangd/

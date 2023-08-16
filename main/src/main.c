@@ -19,10 +19,11 @@ limitations under the License.
 #include "driver/gpio.h"
 #include "driver/uart.h"
 #include "io4edge_debug.h"
-#include "io4edge_ttynvt.h"
 
 #include "projdefs.h"
 #include "twaiL2.h"
+
+#include "com_test.h"
 
 static char* TAG = "main";
 
@@ -38,6 +39,7 @@ void app_main(void)
 {
     ESP_LOGI(TAG, "Start");
 
+    // enable dcdc converter
     gpio_set_direction(GPIO_NUM_34, GPIO_MODE_OUTPUT);
     gpio_set_level(GPIO_NUM_34, 1);
 
@@ -56,42 +58,9 @@ void app_main(void)
     };
     ESP_ERROR_CHECK(io4edge_core_start(&io4edge_core_config));
 
-#ifdef CONFIG_ESP_CONSOLE_NONE
-    io4edge_ttynvt_config_t ttynvt_config1 = {
-        .instance = "com",
-        .instance_idx = 1,
-        .port = 10000,
-        .socket_listen_task_prio = 5,
-        .socket_rx_task_prio = 10,
-        .uart_num = UART_NUM_0,
-        .rx_buf_size = 1024,
-        .tx_buf_size = 1024,
-        .gpio_tx = 11,
-        .gpio_rx = 13,
-        .gpio_rts = 10,
-        .gpio_cts = 12,
-        .uart_task_prio = 11,
-    };
-
-    ESP_ERROR_CHECK(io4edge_ttynvt_new_instance(&ttynvt_config1));
-#endif
-    io4edge_ttynvt_config_t ttynvt_config2 = {
-        .instance = "com",
-        .instance_idx = 2,
-        .port = 10001,
-        .socket_listen_task_prio = 5,
-        .socket_rx_task_prio = 10,
-        .uart_num = UART_NUM_1,
-        .rx_buf_size = 1024,
-        .tx_buf_size = 1024,
-        .gpio_tx = 15,
-        .gpio_rx = 17,
-        .gpio_rts = 14,
-        .gpio_cts = 16,
-        .uart_task_prio = 11,
-    };
-
-    ESP_ERROR_CHECK(io4edge_ttynvt_new_instance(&ttynvt_config2));
+    // Start dedicated com quali test component for com1 and com2
+    com1_test_start();
+    com2_test_start();
 
     //
     // disable CAN_SILENT

@@ -8,3 +8,9 @@
 [submodule "components/esp_io4edge_twaiL2"]
 	path = components/esp_io4edge_twaiL2
 	url = https://github.com/ci4rail/esp_io4edge_twaiL2.git
+[submodule "components/esp_quali_uart"]
+	path = components/esp_quali_uart
+	url = https://github.com/ci4rail/esp_quali_uart.git
+[submodule "components/esp_test_status_report"]
+	path = components/esp_test_status_report
+	url = https://github.com/ci4rail/esp_test_status_report.git
