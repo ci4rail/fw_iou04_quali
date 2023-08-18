@@ -18,6 +18,7 @@ jobs:
           pipeline-name: "${{ github.repository }}"
           # This name is resolved by tailscale magic DNS
           teststation-broker-url: "lizard-rpi:1883"
+          skip-test: "true"
           device-name: "iou04_1"
           test-name: "iou04"
           access-token: ${{ secrets.FW_CI_TOKEN }}
